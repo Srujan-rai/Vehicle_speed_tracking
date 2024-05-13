@@ -18,7 +18,7 @@ def RGB(event, x, y, flags, param):
 cv2.namedWindow('RGB')
 cv2.setMouseCallback('RGB', RGB)
 
-cap=cv2.VideoCapture(0)
+cap=cv2.VideoCapture('2.mp4')
 
 
 my_file = open("coco.txt", "r")
@@ -68,7 +68,7 @@ while True:
         y2=int(row[3])
         d=int(row[5])
         c=class_list[d]
-        if 'car'  or 'truck' or 'bus' in c:
+        if 'cars'  or 'truck' or 'bus' or 'motorcycles' in c:
             list.append([x1,y1,x2,y2])
     bbox_id=tracker.update(list)
     for bbox in bbox_id:
@@ -118,19 +118,19 @@ while True:
 
            
 
-    cv2.line(frame,(274,cy1),(814,cy1),(255,255,255),1)
+    cv2.line(frame,(150,cy1),(927,cy1),(255,255,255),1)
 
     cv2.putText(frame,('L1'),(277,320),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
 
 
-    cv2.line(frame,(177,cy2),(927,cy2),(255,255,255),1)
+    cv2.line(frame,(150,cy2),(927,cy2),(255,255,255),1)
  
     cv2.putText(frame,('L2'),(182,367),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
     d=(len(counter))
     u=(len(counter1))
-    cv2.putText(frame,('goingdown:-')+str(d),(60,90),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
+    #cv2.putText(frame,('goingdown:-')+str(d),(60,90),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
 
-    cv2.putText(frame,('goingup:-')+str(u),(60,130),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
+    #cv2.putText(frame,('goingup:-')+str(u),(60,130),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
     cv2.imshow("RGB", frame)
     if cv2.waitKey(1)&0xFF==27:
         break
