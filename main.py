@@ -109,7 +109,7 @@ while True:
 
              if counter1.count(id)==0:
                 counter1.append(id)      
-                distance1 = 10 # meters
+                distance1 = 25 # meters
                 a_speed_ms1 = distance1 / elapsed1_time
                 a_speed_kh1 = a_speed_ms1 * 3.6
                 cv2.circle(frame,(cx,cy),4,(0,0,255),-1)
