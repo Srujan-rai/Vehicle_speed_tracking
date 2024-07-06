@@ -9,7 +9,7 @@ import time
 app = Flask(__name__)
 
 model = YOLO('yolov8s.pt')
-cap = cv2.VideoCapture(1)
+cap = None  
 tracker = Tracker()
 
 my_file = open("coco.txt", "r")
@@ -24,11 +24,38 @@ counter = []
 vh_up = {}
 counter1 = []
 
+def initialize_camera(index):
+    global cap
+    cap = cv2.VideoCapture(index)
+    if not cap.isOpened():
+        print(f"Error: Could not open camera with index {index}")
+        return False
+    return True
+
+def release_camera():
+    global cap
+    if cap is not None:
+        cap.release()
+        cap = None
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/video_feed')
+def video_feed():
+    camera_index = 0
+    if not initialize_camera(camera_index):
+        return "Error: Could not open camera."
+    return Response(process_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 def process_frame():
+    global cap
     count = 0
     while True:
         ret, frame = cap.read()
         if not ret:
+            print("Error: Could not read frame.")
             break
         count += 1
         if count % 3 != 0:
@@ -98,13 +125,8 @@ def process_frame():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/video_feed')
-def video_feed():
-    return Response(process_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    try:
+        app.run(host='0.0.0.0', port=5000, debug=False)
+    finally:
+        release_camera()
