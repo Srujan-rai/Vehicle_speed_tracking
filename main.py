@@ -123,7 +123,7 @@ while True:
     cv2.putText(frame,('L1'),(277,320),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
 
 
-    cv2.line(frame,(150,cy2),(927,cy2),(255,255,255),1)
+    cv2.line(frame,(100,cy2),(927,cy2),(255,255,255),1)
  
     cv2.putText(frame,('L2'),(182,367),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
     d=(len(counter))
