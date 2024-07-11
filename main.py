@@ -109,7 +109,7 @@ while True:
 
              if counter1.count(id)==0:
                 counter1.append(id)      
-                distance1 = 25 # meters
+                distance1 = 30 # meters
                 a_speed_ms1 = distance1 / elapsed1_time
                 a_speed_kh1 = a_speed_ms1 * 3.6
                 cv2.circle(frame,(cx,cy),4,(0,0,255),-1)
@@ -123,9 +123,9 @@ while True:
     cv2.putText(frame,('L1'),(277,320),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
 
 
-    cv2.line(frame,(100,cy2),(927,cy2),(255,255,255),1)
+    cv2.line(frame,(30,450),(1000,450),(255,255,255),1)
  
-    cv2.putText(frame,('L2'),(182,367),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
+    cv2.putText(frame,('L2'),(45,422),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
     d=(len(counter))
     u=(len(counter1))
     #cv2.putText(frame,('goingdown:-')+str(d),(60,90),cv2.FONT_HERSHEY_COMPLEX,0.8,(0,255,255),2)
